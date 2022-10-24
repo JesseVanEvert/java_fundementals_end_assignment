@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/19">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <HBox id="TopSectionBox" alignment="BOTTOM_RIGHT" style="-fx-background-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Library System">
+               <HBox.margin>
+                  <Insets bottom="40.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Region prefHeight="95.0" prefWidth="89.0" />
+            <Button mnemonicParsing="false" text="Lending/receiving">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button layoutX="559.0" layoutY="80.0" mnemonicParsing="false" text="Collection">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button layoutX="559.0" layoutY="80.0" mnemonicParsing="false" text="Members" />
+         </children>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="4" GridPane.rowIndex="5">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" top="10.0" />
+         </GridPane.margin>
+      </Text>
+      <HBox id="LendingReceivingBox" prefHeight="262.0" prefWidth="601.0" style="-fx-background-color: light-gray;" GridPane.columnIndex="4" GridPane.rowIndex="8">
+         <children>
+            <Region prefHeight="258.0" prefWidth="20.0" />
+            <VBox prefHeight="45.0" prefWidth="270.0" style="-fx-background-color: white;">
+               <children>
+                  <TextField prefHeight="26.0" prefWidth="143.0" promptText="Item code">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Member identifier">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Lend item">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Region layoutX="10.0" layoutY="10.0" prefHeight="258.0" prefWidth="20.0" />
+            <VBox prefHeight="200.0" prefWidth="270.0" style="-fx-background-color: white;">
+               <children>
+                  <TextField prefHeight="26.0" prefWidth="143.0" promptText="Item code">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Receive item">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Region layoutX="10.0" layoutY="10.0" prefHeight="258.0" prefWidth="20.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </HBox>
+      <VBox id="ItemsBox" prefHeight="200.0" prefWidth="100.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="8">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </GridPane.margin>
+         <children>
+            <TableView prefHeight="206.0" prefWidth="561.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="54.0" prefWidth="561.0">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Add item" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" style="-fx-background-color: gray;" text="Edit item" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Button" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox id="MembersBox" prefHeight="200.0" prefWidth="100.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="8">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets>
+         <children>
+            <TableView prefHeight="200.0" prefWidth="561.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="45.0" prefWidth="561.0">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Add member" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" style="-fx-background-color: grey;" text="Edit member" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Delete member" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </GridPane.margin>
+      </VBox>
+      <HBox id="AddMemberBox" prefHeight="100.0" prefWidth="200.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </GridPane.margin>
+         <children>
+            <VBox prefHeight="251.0" prefWidth="281.0">
+               <children>
+                  <TextField promptText="First name">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField layoutX="30.0" layoutY="20.0" promptText="First name">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <HBox prefHeight="35.0" prefWidth="281.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" text="Add member" />
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="Cancel">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="238.0" prefWidth="281.0">
+               <children>
+                  <DatePicker>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </DatePicker>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</GridPane>

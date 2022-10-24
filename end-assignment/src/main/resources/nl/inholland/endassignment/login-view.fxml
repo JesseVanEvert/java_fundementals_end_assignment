@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
-          fx:controller="nl.inholland.endassignment.controllers.LoginController">
+          fx:controller="nl.inholland.endassignment.controllers.LoginController" fx:id="gridpane">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
@@ -30,7 +30,7 @@
     <TextField GridPane.columnIndex="1"/>
     <PasswordField fx:id="passwordField" onTextChange="#onPasswordTextChange" GridPane.columnIndex="1"
                    GridPane.rowIndex="1"/>
-    <Button onAction="#onLoginButtonClick" fx:id="loginButton" disable="true" text="Login" GridPane.columnIndex="1"
+    <Button onAction="#onLoginButtonClick" fx:id="loginButton" text="Login" GridPane.columnIndex="1"
             GridPane.rowIndex="2"/>
     <Label text="${passwordField.text}" GridPane.rowIndex="3"/>
 </GridPane>

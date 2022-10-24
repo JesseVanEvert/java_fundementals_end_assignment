@@ -8,40 +8,42 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nl.inholland.endassignment.LibraryApplication;
+import nl.inholland.endassignment.database.Database;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginController {
+    private Database database;
     @FXML
-    private VBox vBox;
+    private GridPane gridpane;
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
 
-    @FXML
-    private Button loginButton;
+    /*@FXML
+    private Button loginButton;*/
 
     @FXML
     private PasswordField passwordField;
 
     public LoginController() {
-
+        database = new Database();
     }
 
-    @FXML
+    /*@FXML
     public void onPasswordTextChange(StringProperty observable, String oldValue, String newValue) {
         //loginButton.setDisable(!isPasswordValid(newValue));
-    }
+    }*/
 
     @FXML
     public void onLoginButtonClick(ActionEvent event) throws IOException {
-        log.log(Level.INFO, "You have logged in with password {0}", passwordField.getText());
+        log.log(Level.INFO, "User {0} has logged in", passwordField.getText());
         loadScene("main-view.fxml", new MainViewController());
-
     }
 
     //Possibly for register form
@@ -67,7 +69,7 @@ public class LoginController {
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource(name));
             fxmlLoader.setController(controller);
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            Stage window = (Stage) vBox.getScene().getWindow();
+            Stage window = (Stage) gridpane.getScene().getWindow();
             window.setTitle(name.replace(".fxml", ""));
             window.setScene(scene);
         } catch (IOException e) {
