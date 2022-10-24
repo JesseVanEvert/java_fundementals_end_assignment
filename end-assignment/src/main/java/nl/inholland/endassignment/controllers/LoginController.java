@@ -8,13 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nl.inholland.endassignment.LibraryApplication;
 import nl.inholland.endassignment.database.Database;
+import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +32,11 @@ public class LoginController {
     private Button loginButton;*/
 
     @FXML
+    private TextField emailField;
+    @FXML
     private PasswordField passwordField;
+    @FXML
+    private Label loginFeedbackLabel;
 
     public LoginController() {
         database = new Database();
@@ -41,9 +48,31 @@ public class LoginController {
     }*/
 
     @FXML
-    public void onLoginButtonClick(ActionEvent event) throws IOException {
-        log.log(Level.INFO, "User {0} has logged in", passwordField.getText());
-        loadScene("main-view.fxml", new MainViewController());
+    public void onLoginButtonClick(){
+        if(IsLoginValid()) {
+            log.log(Level.INFO, "User with email: {0} has logged in", emailField.getText());
+            loadScene("main-view.fxml", new MainViewController());
+        } else {
+            loginFeedbackLabel.setText("One or more fields\nare filled in incorrectly");
+            log.log(Level.INFO, "User with email: {0} has attempted to log in, but has been denied access", emailField.getText());
+        }
+    }
+
+    private boolean IsLoginValid() {
+        String emailInput = emailField.getText().strip();
+        String passwordInput = passwordField.getText().strip();
+
+        if(emailInput.equals("") || passwordInput.equals("")){
+            return false;
+        }
+
+        for (User user : database.getUsers()) {
+            if(user.getEmail().equals(emailInput) && user.getPassword().equals(passwordInput)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //Possibly for register form

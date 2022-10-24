@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class User {
     private long id;
+    private String email;
     private String firstname;
     private String lastnamePrefix;
     private String lastname;
@@ -13,8 +14,9 @@ public class User {
 
 
 
-    public User(long id, String firstname, String lastnamePrefix, String lastname, String password, LocalDate dateOfBirth) {
+    public User(long id, String email, String firstname, String lastnamePrefix, String lastname, String password, LocalDate dateOfBirth) {
         this.id = id;
+        this.email = email;
         this.firstname = firstname;
         this.lastnamePrefix = lastnamePrefix;
         this.lastname = lastname;
@@ -22,8 +24,9 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public User(long id, String firstname, String lastnamePrefix, String lastname, String password, LocalDate dateOfBirth, UserType userType) {
+    public User(long id, String email, String firstname, String lastnamePrefix, String lastname, String password, LocalDate dateOfBirth, UserType userType) {
         this.id = id;
+        this.email = email;
         this.firstname = firstname;
         this.lastnamePrefix = lastnamePrefix;
         this.lastname = lastname;
@@ -88,5 +91,13 @@ public class User {
 
     public void setLastnamePrefix(String lastnamePrefix) {
         this.lastnamePrefix = lastnamePrefix;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
