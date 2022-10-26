@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridpane" prefHeight="189.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.inholland.endassignment.controllers.LoginController">
+<GridPane fx:id="gridpane" prefHeight="189.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.inholland.endassignment.controllers.LoginController">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" maxWidth="224.8000244140625" minWidth="143.20001220703125" prefWidth="143.20001220703125" />
         <ColumnConstraints hgrow="NEVER" maxWidth="145.59998779296873" minWidth="63.199975585937466" prefWidth="145.59998779296873" />

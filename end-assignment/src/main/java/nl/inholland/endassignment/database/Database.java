@@ -15,9 +15,9 @@ public class Database {
 
     public Database() {
         //Regular user
-        this.users.add(new User(users.size() + 1, "kevin@hotmail.nl", "Kevin", "de", "vries", "$Impel1234", LocalDate.ofYearDay(1999, 3)));
+        this.users.add(new User(users.size() + 1, "kevin@hotmail.nl", "Kevin", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
         //Admin user
-        this.users.add(new User(users.size() + 1, "Peter", "peter@outlook.com", "", "Janssen", "p@$$w0rD123", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
+        this.users.add(new User(users.size() + 1, "Peter", "peter@outlook.com", "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
         Author dostojevski = new Author(items.size() + 1, "Fyodor", "", "Dostojevski");
         Author dickens = new Author(items.size() + 1, "Charles", "", "Dickens");
         this.items.add(new Item(items.size() + 1, "Crime and punishment", dostojevski));

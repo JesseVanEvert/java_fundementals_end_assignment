@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/19">
+<GridPane style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -35,7 +35,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <HBox id="TopSectionBox" alignment="BOTTOM_RIGHT" style="-fx-background-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+      <HBox id="TopSectionBox" alignment="BOTTOM_RIGHT" style="-fx-background-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2" >
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Library System">
                <HBox.margin>
@@ -59,7 +59,7 @@
             <Button layoutX="559.0" layoutY="80.0" mnemonicParsing="false" text="Members" />
          </children>
       </HBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="4" GridPane.rowIndex="5">
+      <Text fx:id="welcomeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <font>
             <Font size="20.0" />
          </font>

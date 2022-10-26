@@ -22,15 +22,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginController {
-    private Database database;
+    private final Database database;
     @FXML
     private GridPane gridpane;
-
     private final Logger log = Logger.getLogger(this.getClass().getName());
-
-    /*@FXML
-    private Button loginButton;*/
-
     @FXML
     private TextField emailField;
     @FXML
@@ -38,27 +33,25 @@ public class LoginController {
     @FXML
     private Label loginFeedbackLabel;
 
+    private User loggedInUser;
+
     public LoginController() {
         database = new Database();
     }
 
-    /*@FXML
-    public void onPasswordTextChange(StringProperty observable, String oldValue, String newValue) {
-        //loginButton.setDisable(!isPasswordValid(newValue));
-    }*/
 
     @FXML
     public void onLoginButtonClick(){
-        if(IsLoginValid()) {
+        if(isLoginValid()) {
             log.log(Level.INFO, "User with email: {0} has logged in", emailField.getText());
-            loadScene("main-view.fxml", new MainViewController());
+            loadScene("main-view.fxml", new MainViewController(database, loggedInUser));
         } else {
             loginFeedbackLabel.setText("One or more fields\nare filled in incorrectly");
             log.log(Level.INFO, "User with email: {0} has attempted to log in, but has been denied access", emailField.getText());
         }
     }
 
-    private boolean IsLoginValid() {
+    private boolean isLoginValid() {
         String emailInput = emailField.getText().strip();
         String passwordInput = passwordField.getText().strip();
 
@@ -68,30 +61,13 @@ public class LoginController {
 
         for (User user : database.getUsers()) {
             if(user.getEmail().equals(emailInput) && user.getPassword().equals(passwordInput)) {
+                loggedInUser = user;
                 return true;
             }
         }
 
         return false;
     }
-
-    //Possibly for register form
-    /*protected boolean isPasswordValid(String password) {
-        boolean hasLetters = false;
-        boolean hasDigits = false;
-        boolean hasSpecial = false;
-
-        for (char c : password.toCharArray()) {
-            if (Character.isDigit(c)) {
-                hasDigits = true;
-            } else if (Character.isLetter(c)) {
-                hasLetters = true;
-            } else {
-                hasSpecial = true;
-            }
-        }
-        return password.length() > 7 && (hasLetters && hasDigits && hasSpecial);
-    }*/
 
     public void loadScene(String name, Object controller) {
         try {
