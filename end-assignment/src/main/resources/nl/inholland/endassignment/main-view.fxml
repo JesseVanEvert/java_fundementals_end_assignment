@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -35,17 +36,17 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <HBox id="TopSectionBox" alignment="BOTTOM_RIGHT" style="-fx-background-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2" >
+      <HBox id="TopSectionBox" alignment="BOTTOM_RIGHT" style="-fx-background-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Library System">
                <HBox.margin>
-                  <Insets bottom="40.0" />
+                  <Insets bottom="40.0" top="20.0" />
                </HBox.margin>
                <font>
                   <Font size="28.0" />
                </font>
             </Text>
-            <Region prefHeight="95.0" prefWidth="89.0" />
+            <Region prefHeight="78.0" prefWidth="290.0" />
             <Button mnemonicParsing="false" text="Lending/receiving">
                <HBox.margin>
                   <Insets right="5.0" />
@@ -64,35 +65,40 @@
             <Font size="20.0" />
          </font>
          <GridPane.margin>
-            <Insets bottom="10.0" left="20.0" top="10.0" />
+            <Insets bottom="10.0" left="33.0" top="10.0" />
          </GridPane.margin>
       </Text>
-      <HBox id="LendingReceivingBox" prefHeight="262.0" prefWidth="601.0" style="-fx-background-color: light-gray;" GridPane.columnIndex="4" GridPane.rowIndex="8">
+      <HBox id="LendingReceivingBox" prefHeight="658.0" prefWidth="1280.0" style="-fx-background-color: light-gray;" GridPane.columnIndex="4" GridPane.rowIndex="8">
          <children>
-            <Region prefHeight="258.0" prefWidth="20.0" />
-            <VBox prefHeight="45.0" prefWidth="270.0" style="-fx-background-color: white;">
+            <Region prefHeight="258.0" prefWidth="33.0" />
+            <VBox prefHeight="45.0" prefWidth="400.0" style="-fx-background-color: white;">
                <children>
-                  <TextField prefHeight="26.0" prefWidth="143.0" promptText="Item code">
+                  <TextField fx:id="lendItemCodeField" prefHeight="26.0" prefWidth="143.0" promptText="Item code">
                      <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Member identifier">
+                  <TextField fx:id="memberIdTextField" promptText="Member identifier">
                      <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Lend item">
+                  <Button mnemonicParsing="false" onAction="#onLendItemButtonClick" text="Lend item">
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Button>
+                  <Label fx:id="feedbackLendItemLabel" text="Feedback item" visible="false">
+                     <VBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
             </VBox>
-            <Region layoutX="10.0" layoutY="10.0" prefHeight="258.0" prefWidth="20.0" />
-            <VBox prefHeight="200.0" prefWidth="270.0" style="-fx-background-color: white;">
+            <Region layoutX="10.0" layoutY="10.0" prefHeight="258.0" prefWidth="33.0" />
+            <VBox prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: white;">
                <children>
-                  <TextField prefHeight="26.0" prefWidth="143.0" promptText="Item code">
+                  <TextField fx:id="receiveItemCodeField" prefHeight="26.0" prefWidth="143.0" promptText="Item code">
                      <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
@@ -104,7 +110,6 @@
                   </Button>
                </children>
             </VBox>
-            <Region layoutX="10.0" layoutY="10.0" prefHeight="258.0" prefWidth="20.0" />
          </children>
          <opaqueInsets>
             <Insets />

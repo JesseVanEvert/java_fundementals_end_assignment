@@ -1,8 +1,11 @@
 package nl.inholland.endassignment.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Item {
     private long id;
-    private AvailabilityType available = AvailabilityType.YES;
+    private LocalDate lendOutOn = null;
     private String title;
     private Author author;
 
@@ -20,14 +23,6 @@ public class Item {
         this.id = id;
     }
 
-    public AvailabilityType getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(AvailabilityType available) {
-        this.available = available;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -38,6 +33,14 @@ public class Item {
 
     public Author getAuthor() {
         return author;
+    }
+
+    public LocalDate getLendOutOn() {
+        return lendOutOn;
+    }
+
+    public void setLendOutOn(LocalDate lendOutOn) {
+        this.lendOutOn = lendOutOn;
     }
 
     public void setAuthor(Author author) {

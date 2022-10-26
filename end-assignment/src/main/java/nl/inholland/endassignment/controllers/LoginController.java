@@ -17,12 +17,11 @@ import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginController {
-    private final Database database;
+    private final Database db;
     @FXML
     private GridPane gridpane;
     private final Logger log = Logger.getLogger(this.getClass().getName());
@@ -36,7 +35,7 @@ public class LoginController {
     private User loggedInUser;
 
     public LoginController() {
-        database = new Database();
+        db = new Database();
     }
 
 
@@ -44,7 +43,7 @@ public class LoginController {
     public void onLoginButtonClick(){
         if(isLoginValid()) {
             log.log(Level.INFO, "User with email: {0} has logged in", emailField.getText());
-            loadScene("main-view.fxml", new MainViewController(database, loggedInUser));
+            loadScene("main-view.fxml", new MainViewController(db, loggedInUser));
         } else {
             loginFeedbackLabel.setText("One or more fields\nare filled in incorrectly");
             log.log(Level.INFO, "User with email: {0} has attempted to log in, but has been denied access", emailField.getText());
@@ -59,7 +58,7 @@ public class LoginController {
             return false;
         }
 
-        for (User user : database.getUsers()) {
+        for (User user : db.getUsers()) {
             if(user.getEmail().equals(emailInput) && user.getPassword().equals(passwordInput)) {
                 loggedInUser = user;
                 return true;

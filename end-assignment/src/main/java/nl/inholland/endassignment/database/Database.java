@@ -6,22 +6,26 @@ import nl.inholland.endassignment.models.User;
 import nl.inholland.endassignment.models.UserType;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-    private ArrayList<User> users = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
+    private final ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<Item> items = new ArrayList<>();
 
     public Database() {
         //Regular user
-        this.users.add(new User(users.size() + 1, "kevin@hotmail.nl", "Kevin", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
+        this.users.add(new User(users.size(), "kevin@hotmail.nl", "Kevin", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
         //Admin user
-        this.users.add(new User(users.size() + 1, "Peter", "peter@outlook.com", "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
-        Author dostojevski = new Author(items.size() + 1, "Fyodor", "", "Dostojevski");
-        Author dickens = new Author(items.size() + 1, "Charles", "", "Dickens");
-        this.items.add(new Item(items.size() + 1, "Crime and punishment", dostojevski));
-        this.items.add(new Item(items.size() + 1, "A tale of two cities", dickens));
+        this.users.add(new User(users.size() + 1L, "Peter", "peter@outlook.com", "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
+        Author dostojevski = new Author(items.size(), "Fyodor", "", "Dostojevski");
+        Author dickens = new Author(items.size() + 1L, "Charles", "", "Dickens");
+        this.items.add(new Item(items.size(), "Crime and punishment", dostojevski));
+        Item aTaleOfTwoCities = new Item(items.size() + 1L, "A tale of two cities", dickens);
+        aTaleOfTwoCities.setLendOutOn(LocalDate.ofYearDay(2022, 2));
+        this.items.add(aTaleOfTwoCities);
+
     }
 
     public List<User> getUsers() {
