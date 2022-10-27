@@ -72,7 +72,7 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource(name));
             fxmlLoader.setController(controller);
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(fxmlLoader.load(), 900, 400);
             Stage window = (Stage) gridpane.getScene().getWindow();
             window.setTitle(name.replace(".fxml", ""));
             window.setScene(scene);
