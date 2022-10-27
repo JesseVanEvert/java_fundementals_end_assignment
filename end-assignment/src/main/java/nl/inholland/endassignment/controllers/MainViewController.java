@@ -30,7 +30,11 @@ public class MainViewController implements Initializable {
     @FXML
     private TextField lendItemCodeField;
     @FXML
+    private TextField receiveItemCodeField;
+    @FXML
     private Label feedbackLendItemLabel;
+    @FXML
+    private Label feedbackReceiveItemLabel;
 
     public MainViewController(Database db, User loggedInUser) {
         this.db = db;
@@ -45,6 +49,20 @@ public class MainViewController implements Initializable {
         this.users = FXCollections.observableArrayList(db.getUsers());
     }
 
+    @FXML
+    private void onReceiveItemButtonClick() {
+        String itemCode = receiveItemCodeField.getText();
+
+        Item selectedItem = this.getItemFromItems(itemCode);
+        if(selectedItem == null)
+            return;
+
+        this.items.get((int)selectedItem.getId()).setLendOutOn(null);
+        feedbackLendItemLabel.setText("The item: " + selectedItem.getTitle() + " has been received");
+        feedbackLendItemLabel.setVisible(true);
+    }
+
+    //Lend item part
     @FXML
     private void onLendItemButtonClick() {
         String itemCode = lendItemCodeField.getText();
@@ -65,7 +83,7 @@ public class MainViewController implements Initializable {
             return;
 
         this.items.get((int)selectedItem.getId()).setLendOutOn(LocalDate.now());
-        feedbackLendItemLabel.setText("The item " + selectedItem.getTitle() + "is lend out to " + selectedUser.getFirstname());
+        feedbackLendItemLabel.setText("The item " + selectedItem.getTitle() + " is lend out to " + selectedUser.getFirstname());
         feedbackLendItemLabel.setVisible(true);
     }
 
