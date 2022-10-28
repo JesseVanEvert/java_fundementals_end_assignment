@@ -10,6 +10,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import nl.inholland.endassignment.database.Database;
+import nl.inholland.endassignment.models.Author;
 import nl.inholland.endassignment.models.Item;
 import nl.inholland.endassignment.models.User;
 
@@ -19,7 +20,6 @@ import java.util.ResourceBundle;
 public class CollectionController implements Initializable {
 
     private final Database db;
-    private final User loggedInUser;
     private ObservableList<Item> items;
     private long selectedItemId;
     @FXML
@@ -33,15 +33,13 @@ public class CollectionController implements Initializable {
     @FXML
     private TextField lastnameAuthorField;
 
-    public CollectionController(Database db, User loggedInUser) {
+    public CollectionController(Database db) {
         this.db = db;
-        this.loggedInUser = loggedInUser;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.items = FXCollections.observableArrayList(db.getItems());
-        //this.itemsTableView.setItems(items);
         Property<ObservableList<Item>> authorListProperty = new SimpleObjectProperty<>(items);
         this.itemsTableView.itemsProperty().bind(authorListProperty);
         this.itemsTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -58,26 +56,38 @@ public class CollectionController implements Initializable {
         });
     }
     public void onAddItemButtonClick() {
-
+        Author author = new Author(
+                this.items.size() + 1L,
+                this.firstnameAuthorField.getText(),
+                this.prefixField.getText(),
+                this.lastnameAuthorField.getText()
+        );
+        this.items.add(new Item(this.items.get(items.size() - 1).getId() + 1, titleField.getText(), author));
     }
 
     public void onDeleteItemButtonClick() {
+        if(selectedItemId == 0)
+            return;
 
+        this.items.remove((int)selectedItemId - 1);
     }
 
     public void onEditItemButtonClick() {
         if(selectedItemId == 0)
             return;
 
-        items.get((int)selectedItemId - 1).setTitle(this.titleField.getText());
-        items.get((int)selectedItemId - 1).getAuthor().setFirstname(this.firstnameAuthorField.getText());
-        items.get((int)selectedItemId - 1).getAuthor().setLastnamePrefix(this.prefixField.getText());
-        items.get((int)selectedItemId - 1).getAuthor().setLastname(this.lastnameAuthorField.getText());
+        this.items.get((int)selectedItemId - 1).setTitle(this.titleField.getText());
+        this.items.get((int)selectedItemId - 1).getAuthor().setFirstname(this.firstnameAuthorField.getText());
+        this.items.get((int)selectedItemId - 1).getAuthor().setLastnamePrefix(this.prefixField.getText());
+        this.items.get((int)selectedItemId - 1).getAuthor().setLastname(this.lastnameAuthorField.getText());
 
-        itemsTableView.refresh();
+        this.itemsTableView.refresh();
     }
 
     public void onClearFieldsButtonClick() {
-
+        this.titleField.setText("");
+        this.firstnameAuthorField.setText("");
+        this.prefixField.setText("");
+        this.lastnameAuthorField.setText("");
     }
 }

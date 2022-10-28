@@ -56,7 +56,7 @@ public class MainViewController implements Initializable{
 
                         switch (fileName) {
                             case "collection-view.fxml" ->
-                                    loader.setController(new CollectionController(db, loggedInUser));
+                                    loader.setController(new CollectionController(db));
                             case "lending-receiving-view.fxml" ->
                                     loader.setController(new LendingReceivingController(db, loggedInUser));
                             case "members-view.fxml" -> loader.setController(new MembersController());

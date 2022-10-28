@@ -7,17 +7,13 @@ public class Item {
     private long id;
     private LocalDate lendOutOn = null;
     private String title;
-    private String available = "Yes";
     private Author author;
-    private String authorName;
 
     public Item(long id, String title, Author author) {
         this.id = id;
         this.title = title;
         this.author = author;
     }
-
-
 
     public long getId() {
         return id;
@@ -45,7 +41,6 @@ public class Item {
 
     public void setLendOutOn(LocalDate lendOutOn) {
         this.lendOutOn = lendOutOn;
-        this.available = ((lendOutOn == null) ? "Yes" : "No");
     }
 
     public void setAuthor(Author author) {
@@ -57,6 +52,6 @@ public class Item {
     }
 
     public String getAvailable() {
-        return available;
+        return ((this.lendOutOn == null) ? "Yes" : "No");
     }
 }
