@@ -44,4 +44,6 @@ public class Author {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    public String getAuthorName() { return this.lastname + " " + this.firstname.charAt(0) + ". " + this.lastnamePrefix; }
 }

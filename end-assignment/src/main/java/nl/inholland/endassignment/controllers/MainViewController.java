@@ -29,10 +29,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class MainViewController implements Initializable{
 
     protected final Database db;
-
     @FXML
     private TabPane tabPane;
-    private final FXMLLoader fXMLLoader = new FXMLLoader();
     private final User loggedInUser;
 
     public MainViewController(Database db, User loggedInUser) {
@@ -56,16 +54,12 @@ public class MainViewController implements Initializable{
                         String fileName = newValue.getText().toLowerCase(Locale.ROOT) + "-view.fxml";
                         FXMLLoader loader = new FXMLLoader();
 
-                        switch(fileName) {
-                            case "collection-view.fxml":
-                                loader.setController(new CollectionController());
-                                break;
-                            case "lending-receiving-view.fxml":
-                                loader.setController(new LendingReceivingController(db, loggedInUser));
-                                break;
-                            case "members-view.fxml":
-                                loader.setController(new MembersController());
-                                break;
+                        switch (fileName) {
+                            case "collection-view.fxml" ->
+                                    loader.setController(new CollectionController(db, loggedInUser));
+                            case "lending-receiving-view.fxml" ->
+                                    loader.setController(new LendingReceivingController(db, loggedInUser));
+                            case "members-view.fxml" -> loader.setController(new MembersController());
                         }
 
                         Parent root = (Parent) loader.load(LibraryApplication.class.getResource(fileName).openStream());

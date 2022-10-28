@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
 
     <VBox id="ItemsBox" prefHeight="400.0" prefWidth="600.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
         <opaqueInsets>
@@ -19,10 +20,28 @@
             <Insets bottom="20.0" left="20.0" right="20.0" />
         </GridPane.margin>
         <children>
-            <TableView prefHeight="206.0" prefWidth="561.0">
+            <TableView fx:id="itemsTableView" prefHeight="206.0" prefWidth="561.0">
                 <columns>
-                    <TableColumn prefWidth="75.0" text="C1" />
-                    <TableColumn prefWidth="75.0" text="C2" />
+                    <TableColumn text="Item code">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="id"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Available">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="available"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Title">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="title"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Author">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="authorName"/>
+                        </cellValueFactory>
+                    </TableColumn>
                 </columns>
             </TableView>
             <HBox prefHeight="54.0" prefWidth="561.0">
