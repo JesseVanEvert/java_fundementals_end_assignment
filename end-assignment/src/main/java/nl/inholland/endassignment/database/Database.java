@@ -16,16 +16,20 @@ public class Database {
 
     public Database() {
         //Regular user
-        this.users.add(new User(users.size(), "kevin@hotmail.nl", "Kevin", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
+        this.users.add(new User(users.size() + 1L, "kevin@hotmail.nl", "Kevin", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
         //Admin user
-        this.users.add(new User(users.size(), "Peter", "peter@outlook.com", "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
-        Author dostojevski = new Author(items.size(), "Fyodor", "", "Dostojevski");
-        Author dickens = new Author(items.size(), "Charles", "", "Dickens");
-        this.items.add(new Item(items.size(), "Crime and punishment", dostojevski));
-        Item aTaleOfTwoCities = new Item(items.size(), "A tale of two cities", dickens);
-        aTaleOfTwoCities.setLendOutOn(LocalDate.ofYearDay(2022, 2));
-        this.items.add(aTaleOfTwoCities);
+        this.users.add(new User(users.size() + 1L, "Peter", "peter@outlook.com", "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3), UserType.ADMIN));
 
+        Author dostoyevsky = new Author(items.size() + 1L, "Fyodor", "", "Dostoyevsky");
+        Author dickens = new Author(items.size() + 1L, "Charles", "", "Dickens");
+        Author marquez = new Author(items.size() + 1L, "Gabriel", "Garcia", "Marquez");
+
+        this.items.add(new Item(items.size() + 1L, "Crime and punishment", dostoyevsky));
+        Item aTaleOfTwoCities = new Item(items.size() + 1L, "A tale of two cities", dickens);
+        aTaleOfTwoCities.setLendOutOn(LocalDate.ofYearDay(2022, 2));
+
+        this.items.add(aTaleOfTwoCities);
+        this.items.add(new Item(items.size() + 1L, "One Hundred Years of Solitude", marquez));
     }
 
     public List<User> getUsers() {

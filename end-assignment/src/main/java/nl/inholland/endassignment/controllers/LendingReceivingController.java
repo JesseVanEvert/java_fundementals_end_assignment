@@ -57,7 +57,7 @@ public class LendingReceivingController implements Initializable {
         if(selectedItem == null)
             return;
 
-        this.items.get((int)selectedItem.getId()).setLendOutOn(null);
+        this.items.get((int)selectedItem.getId() - 1).setLendOutOn(null);
         feedbackLendItemLabel.setText("The item: " + selectedItem.getTitle() + " has been received");
         feedbackLendItemLabel.setVisible(true);
     }
@@ -82,7 +82,7 @@ public class LendingReceivingController implements Initializable {
         if(!this.isTheItemAvailable(selectedItem))
             return;
 
-        this.items.get((int)selectedItem.getId()).setLendOutOn(LocalDate.now());
+        this.items.get((int)selectedItem.getId() - 1).setLendOutOn(LocalDate.now());
         feedbackLendItemLabel.setText("The item " + selectedItem.getTitle() + " is lend out to " + selectedUser.getFirstname());
         feedbackLendItemLabel.setVisible(true);
     }
@@ -107,7 +107,7 @@ public class LendingReceivingController implements Initializable {
         Item selectedItem;
 
         try {
-            selectedItem = this.items.get(Integer.parseInt(itemCode));
+            selectedItem = this.items.get(Integer.parseInt(itemCode) - 1);
         } catch (NumberFormatException e) {
             feedbackLendItemLabel.setText("The item code is a number");
             feedbackLendItemLabel.setVisible(true);
@@ -125,7 +125,7 @@ public class LendingReceivingController implements Initializable {
         User selectedUser;
 
         try {
-            selectedUser = this.users.get(Integer.parseInt(memberId));
+            selectedUser = this.users.get(Integer.parseInt(memberId) - 1);
         } catch (NumberFormatException e) {
             feedbackLendItemLabel.setText("The member id is a number");
             feedbackLendItemLabel.setVisible(true);

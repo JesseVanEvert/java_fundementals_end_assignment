@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
 
     <VBox id="ItemsBox" prefHeight="400.0" prefWidth="800.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
         <opaqueInsets>
@@ -47,65 +47,46 @@
             </TableView>
          <HBox prefHeight="54.0" prefWidth="561.0">
             <children>
-               <TextField promptText="Title">
+               <TextField fx:id="titleField" promptText="Title">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>
                </TextField>
-               <TextField promptText="Firstname author">
+               <TextField fx:id="firstnameAuthorField" promptText="Firstname author">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>
                </TextField>
-               <TextField prefHeight="26.0" prefWidth="53.0" promptText="Prefix">
+               <TextField fx:id="prefixField" prefHeight="26.0" prefWidth="53.0" promptText="Prefix">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>
                </TextField>
-               <TextField promptText="Lastname author">
+               <TextField fx:id="lastnameAuthorField" promptText="Lastname author">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>
                </TextField>
-               <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Add item" textFill="WHITE">
+               <Button onAction="#onAddItemButtonClick" fx:id="addItem" mnemonicParsing="false" style="-fx-background-color: blue;" text="Add item" textFill="WHITE">
+                  <HBox.margin>
+                     <Insets left="10.0" top="10.0" />
+                  </HBox.margin>
+               </Button>
+                    <Button onAction="#onEditItemButtonClick" mnemonicParsing="false" style="-fx-background-color: gray;" text="Edit item" textFill="WHITE">
+                        <HBox.margin>
+                            <Insets left="10.0" top="10.0" />
+                        </HBox.margin>
+                    </Button>
+               <Button onAction="#onClearFieldsButtonClick" layoutX="640.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Clear fields" textFill="WHITE">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>
                </Button>
             </children>
          </HBox>
-            <HBox prefHeight="54.0" prefWidth="561.0">
-                <children>
-               <TextField promptText="Title">
-                  <HBox.margin>
-                     <Insets left="10.0" top="10.0" />
-                  </HBox.margin>
-               </TextField>
-               <TextField promptText="Firstname author">
-                  <HBox.margin>
-                     <Insets left="10.0" top="10.0" />
-                  </HBox.margin>
-               </TextField>
-               <TextField prefHeight="26.0" prefWidth="53.0" promptText="Prefix">
-                  <HBox.margin>
-                     <Insets left="10.0" top="10.0" />
-                  </HBox.margin>
-               </TextField>
-               <TextField promptText="Lastname author">
-                  <HBox.margin>
-                     <Insets left="10.0" top="10.0" />
-                  </HBox.margin>
-               </TextField>
-                    <Button mnemonicParsing="false" style="-fx-background-color: gray;" text="Edit item" textFill="WHITE">
-                        <HBox.margin>
-                            <Insets left="10.0" top="10.0" />
-                        </HBox.margin>
-                    </Button>
-                </children>
-            </HBox>
          <HBox layoutX="10.0" layoutY="271.0" prefHeight="54.0" prefWidth="561.0">
             <children>
-               <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Delete item" textFill="WHITE">
+               <Button onAction="#onDeleteItemButtonClick" mnemonicParsing="false" style="-fx-background-color: red;" text="Delete item" textFill="WHITE">
                   <HBox.margin>
                      <Insets left="10.0" top="10.0" />
                   </HBox.margin>

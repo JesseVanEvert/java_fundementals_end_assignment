@@ -15,8 +15,9 @@ public class Item {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.authorName = author.getAuthorName();
     }
+
+
 
     public long getId() {
         return id;
@@ -52,7 +53,7 @@ public class Item {
     }
 
     public String getAuthorName() {
-        return authorName;
+        return author.getAuthorName();
     }
 
     public String getAvailable() {
