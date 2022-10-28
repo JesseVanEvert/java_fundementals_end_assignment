@@ -35,21 +35,21 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <TabPane prefHeight="406.0" prefWidth="900.0" style="-fx-background-color: black;" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="4" GridPane.rowIndex="8">
+      <TabPane fx:id="tabPane" prefHeight="406.0" prefWidth="900.0" style="-fx-background-color: black;" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="4" GridPane.rowIndex="8">
         <tabs>
-          <Tab text="Lending/receiving">
+          <Tab text="Lending-receiving">
             <content>
-              <fx:include source="lending-receiving-view.fxml" />
+              <!--<fx:include source="lending-receiving-view.fxml" />-->
             </content>
           </Tab>
           <Tab text="Collection">
             <content>
-                <fx:include source="collection-view.fxml" />
+                <!--<fx:include source="collection-view.fxml" />-->
             </content>
           </Tab>
             <Tab text="Members">
                <content>
-                   <fx:include source="members-view.fxml" />
+                   <!--<fx:include source="members-view.fxml" />-->
                </content>
             </Tab>
         </tabs>
