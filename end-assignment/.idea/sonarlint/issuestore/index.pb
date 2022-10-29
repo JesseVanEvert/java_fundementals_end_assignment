@@ -1,7 +1,3 @@
 
-i
-9src/main/java/nl/inholland/endassignment/models/User.java,d\4\d4b72db49e0fc4c6be83aa39418ecfa04a6de2fe
 m
 =src/main/java/nl/inholland/endassignment/models/UserType.java,8\b\8bd1182333ff2041c868964a2123d37ed7354b60
-u
-Esrc/main/java/nl/inholland/endassignment/models/AvailabilityType.java,4\4\44d96d98b1ba73b16e94d89fa441d3f97d198aea

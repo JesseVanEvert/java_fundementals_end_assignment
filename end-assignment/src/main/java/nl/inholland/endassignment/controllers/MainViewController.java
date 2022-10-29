@@ -1,9 +1,12 @@
 package nl.inholland.endassignment.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +15,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import nl.inholland.endassignment.LibraryApplication;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.Item;
@@ -59,7 +65,7 @@ public class MainViewController implements Initializable{
                                     loader.setController(new CollectionController(db));
                             case "lending-receiving-view.fxml" ->
                                     loader.setController(new LendingReceivingController(db, loggedInUser));
-                            case "members-view.fxml" -> loader.setController(new MembersController());
+                            case "members-view.fxml" -> loader.setController(new MembersController(db));
                         }
 
                         Parent root = (Parent) loader.load(LibraryApplication.class.getResource(fileName).openStream());

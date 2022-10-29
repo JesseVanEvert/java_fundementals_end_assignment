@@ -10,7 +10,6 @@ public class User {
     private String lastname;
     private String password;
     private LocalDate dateOfBirth;
-    private UserType userType = UserType.REGULAR;
 
 
 
@@ -22,17 +21,6 @@ public class User {
         this.lastname = lastname;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public User(long id, String email, String firstname, String lastnamePrefix, String lastname, String password, LocalDate dateOfBirth, UserType userType) {
-        this.id = id;
-        this.email = email;
-        this.firstname = firstname;
-        this.lastnamePrefix = lastnamePrefix;
-        this.lastname = lastname;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.userType = userType;
     }
 
     public User() {}
@@ -75,14 +63,6 @@ public class User {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
     }
 
     public String getLastnamePrefix() {

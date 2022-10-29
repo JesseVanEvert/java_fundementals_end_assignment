@@ -7,6 +7,7 @@ module nl.inholland.endassignment {
     opens nl.inholland.endassignment to javafx.fxml;
     exports nl.inholland.endassignment;
     exports nl.inholland.endassignment.controllers;
+    exports nl.inholland.endassignment.database;
     opens nl.inholland.endassignment.controllers to javafx.fxml;
 
     exports nl.inholland.endassignment.models;

@@ -1,7 +1,6 @@
 package nl.inholland.endassignment.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Item {
     private long id;

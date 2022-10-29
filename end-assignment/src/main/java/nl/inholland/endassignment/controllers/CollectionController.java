@@ -12,15 +12,14 @@ import javafx.scene.control.TextField;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.Author;
 import nl.inholland.endassignment.models.Item;
-import nl.inholland.endassignment.models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CollectionController implements Initializable {
 
     private final Database db;
-    private ObservableList<Item> items;
     private long selectedItemId;
     @FXML
     private TableView<Item> itemsTableView;
@@ -39,9 +38,8 @@ public class CollectionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.items = FXCollections.observableArrayList(db.getItems());
-        Property<ObservableList<Item>> authorListProperty = new SimpleObjectProperty<>(items);
-        this.itemsTableView.itemsProperty().bind(authorListProperty);
+        Property<ObservableList<Item>> itemListProperty = new SimpleObjectProperty<>(db.getItems());
+        this.itemsTableView.itemsProperty().bind(itemListProperty);
         this.itemsTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.addTableViewListener();
     }
@@ -57,31 +55,42 @@ public class CollectionController implements Initializable {
     }
     public void onAddItemButtonClick() {
         Author author = new Author(
-                this.items.size() + 1L,
+                db.getItems().size() + 1L,
                 this.firstnameAuthorField.getText(),
                 this.prefixField.getText(),
                 this.lastnameAuthorField.getText()
         );
-        this.items.add(new Item(this.items.get(items.size() - 1).getId() + 1, titleField.getText(), author));
+
+        db.getItems().add(new Item(db.getItems().get(db.getItems().size() - 1).getId() + 1, titleField.getText(), author));
+        this.writeItemsToCsv();
     }
 
     public void onDeleteItemButtonClick() {
         if(selectedItemId == 0)
             return;
 
-        this.items.remove((int)selectedItemId - 1);
+        db.getItems().remove((int)selectedItemId - 1);
+        this.writeItemsToCsv();
     }
 
+    private void writeItemsToCsv() {
+        try {
+            db.writeItemsToCsv();
+        } catch (IOException ex) {
+            System.out.println("werkt niet");
+        }
+    }
     public void onEditItemButtonClick() {
         if(selectedItemId == 0)
             return;
 
-        this.items.get((int)selectedItemId - 1).setTitle(this.titleField.getText());
-        this.items.get((int)selectedItemId - 1).getAuthor().setFirstname(this.firstnameAuthorField.getText());
-        this.items.get((int)selectedItemId - 1).getAuthor().setLastnamePrefix(this.prefixField.getText());
-        this.items.get((int)selectedItemId - 1).getAuthor().setLastname(this.lastnameAuthorField.getText());
+        db.getItems().get((int)selectedItemId - 1).setTitle(this.titleField.getText());
+        db.getItems().get((int)selectedItemId - 1).getAuthor().setFirstname(this.firstnameAuthorField.getText());
+        db.getItems().get((int)selectedItemId - 1).getAuthor().setLastnamePrefix(this.prefixField.getText());
+        db.getItems().get((int)selectedItemId - 1).getAuthor().setLastname(this.lastnameAuthorField.getText());
 
         this.itemsTableView.refresh();
+        this.writeItemsToCsv();
     }
 
     public void onClearFieldsButtonClick() {

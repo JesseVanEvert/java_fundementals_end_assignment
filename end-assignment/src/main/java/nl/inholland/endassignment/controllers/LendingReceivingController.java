@@ -1,5 +1,6 @@
 package nl.inholland.endassignment.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,10 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.Item;
 import nl.inholland.endassignment.models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -21,8 +24,6 @@ public class LendingReceivingController implements Initializable {
 
     private final Database db;
     protected User loggedInUser;
-    protected ObservableList<Item> items;
-    protected ObservableList<User> users;
     /*@FXML
     private Text welcomeText;*/
     @FXML
@@ -40,8 +41,6 @@ public class LendingReceivingController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //this.welcomeText.setText("Welcome " + loggedInUser.getFirstname());
         this.memberIdTextField.setText(Long.toString(this.loggedInUser.getId()));
-        this.items = FXCollections.observableArrayList(db.getItems());
-        this.users = FXCollections.observableArrayList(db.getUsers());
     }
 
     public LendingReceivingController(Database db, User loggedInUser) {
@@ -57,7 +56,7 @@ public class LendingReceivingController implements Initializable {
         if(selectedItem == null)
             return;
 
-        this.items.get((int)selectedItem.getId() - 1).setLendOutOn(null);
+        db.getItems().get((int)selectedItem.getId() - 1).setLendOutOn(null);
         feedbackLendItemLabel.setText("The item: " + selectedItem.getTitle() + " has been received");
         feedbackLendItemLabel.setVisible(true);
     }
@@ -82,7 +81,7 @@ public class LendingReceivingController implements Initializable {
         if(!this.isTheItemAvailable(selectedItem))
             return;
 
-        this.items.get((int)selectedItem.getId() - 1).setLendOutOn(LocalDate.now());
+        db.getItems().get((int)selectedItem.getId() - 1).setLendOutOn(LocalDate.now());
         feedbackLendItemLabel.setText("The item " + selectedItem.getTitle() + " is lend out to " + selectedUser.getFirstname());
         feedbackLendItemLabel.setVisible(true);
     }
@@ -107,7 +106,7 @@ public class LendingReceivingController implements Initializable {
         Item selectedItem;
 
         try {
-            selectedItem = this.items.get(Integer.parseInt(itemCode) - 1);
+            selectedItem = db.getItems().get(Integer.parseInt(itemCode) - 1);
         } catch (NumberFormatException e) {
             feedbackLendItemLabel.setText("The item code is a number");
             feedbackLendItemLabel.setVisible(true);
@@ -125,7 +124,7 @@ public class LendingReceivingController implements Initializable {
         User selectedUser;
 
         try {
-            selectedUser = this.users.get(Integer.parseInt(memberId) - 1);
+            selectedUser = db.getUsers().get(Integer.parseInt(memberId) - 1);
         } catch (NumberFormatException e) {
             feedbackLendItemLabel.setText("The member id is a number");
             feedbackLendItemLabel.setVisible(true);
