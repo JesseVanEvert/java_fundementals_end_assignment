@@ -12,9 +12,11 @@ import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class MembersController implements Initializable {
     private final Database db;
@@ -35,6 +37,7 @@ public class MembersController implements Initializable {
     @FXML
     private TextField searchMembersField;
     private long selectedItemId;
+    private final Logger log = Logger.getLogger(this.getClass().getName());
 
     public MembersController(Database db) {
         this.db = db;
@@ -94,6 +97,8 @@ public class MembersController implements Initializable {
         this.writeUsersToCsv();
     }
 
+
+
     public void onEditUserButtonClick() {
         if(selectedItemId == 0)
             return;
@@ -121,7 +126,7 @@ public class MembersController implements Initializable {
         try {
             db.writeUsersToCsv();
         } catch (IOException ex) {
-            System.out.println("werkt niet");
+            this.log.warning("Writing to users csv failed at: " + LocalDate.now() + " exception: " + ex);
         }
     }
 

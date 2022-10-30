@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import nl.inholland.endassignment.LibraryApplication;
 import nl.inholland.endassignment.database.Database;
-import nl.inholland.endassignment.models.Item;
 import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
@@ -29,8 +28,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class MainViewController implements Initializable{
 
@@ -38,6 +37,7 @@ public class MainViewController implements Initializable{
     @FXML
     private TabPane tabPane;
     private final User loggedInUser;
+    private final Logger log = Logger.getLogger(this.getClass().getName());
 
     public MainViewController(Database db, User loggedInUser) {
         this.db = db;
@@ -55,7 +55,6 @@ public class MainViewController implements Initializable{
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
                 System.out.println("Tab selected: " + newValue.getText());
 
-                if (newValue.getContent() == null) {
                     try {
                         String fileName = newValue.getText().toLowerCase(Locale.ROOT) + "-view.fxml";
                         FXMLLoader loader = new FXMLLoader();
@@ -72,14 +71,8 @@ public class MainViewController implements Initializable{
                         newValue.setContent(root);
 
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        log.warning("Opening fxml view failed at: " + LocalDate.now() + " exception: " + ex);
                     }
-                } else {
-                    // Content is already loaded. Update it if necessary.
-                    Parent root = (Parent) newValue.getContent();
-                    // Optionally get the controller from Map and manipulate the content
-                    // via its controller.
-                }
             }
         });
         // By default, select 1st tab and load its content.

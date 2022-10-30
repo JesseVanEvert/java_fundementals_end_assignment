@@ -24,8 +24,8 @@ public class LendingReceivingController implements Initializable {
 
     private final Database db;
     protected User loggedInUser;
-    /*@FXML
-    private Text welcomeText;*/
+    @FXML
+    private Label welcomeLabel;
     @FXML
     private TextField memberIdTextField;
     @FXML
@@ -39,7 +39,7 @@ public class LendingReceivingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //this.welcomeText.setText("Welcome " + loggedInUser.getFirstname());
+        this.welcomeLabel.setText("Welcome " + loggedInUser.getFirstname());
         this.memberIdTextField.setText(Long.toString(this.loggedInUser.getId()));
     }
 

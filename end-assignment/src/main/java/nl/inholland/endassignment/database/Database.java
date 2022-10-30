@@ -12,10 +12,12 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Database {
     private final ObservableList<User> users = FXCollections.observableArrayList();
     private final ObservableList<Item> items = FXCollections.observableArrayList();
+    private final Logger log = Logger.getLogger(this.getClass().getName());
 
     public Database() {
         this.users.add(new User(users.size() + 1L, "hans@hotmail.nl", "Hans", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
@@ -53,9 +55,9 @@ public class Database {
                             )
                     );
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            this.log.warning("Reading from users csv failed at: " + LocalDate.now() + " exception: " + ioe);
         } catch (Exception ex) {
-
+            this.log.warning("Generic exception at: " + LocalDate.now() + " exception: " + ex);
         }
     }
     public void readItemsFromCsvToList() {
@@ -74,9 +76,9 @@ public class Database {
                             )
                     );
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            this.log.warning("Reading from items csv failed at: " + LocalDate.now() + " exception: " + ioe);
         } catch (Exception ex) {
-
+            this.log.warning("Generic exception at: " + LocalDate.now() + " exception: " + ex);
         }
     }
 
@@ -95,9 +97,9 @@ public class Database {
                             )
                     );
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            this.log.warning("Reading from authors csv failed at: " + LocalDate.now() + " exception: " + ioe);
         } catch (Exception ex) {
-
+            this.log.warning("Generic exception at: " + LocalDate.now() + " exception: " + ex);
         }
 
         return authors;
@@ -118,7 +120,7 @@ public class Database {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            this.log.warning("Generic exception at: " + LocalDate.now() + " exception: " + ex);
         } finally {
             userWriter.flush();
             userWriter.close();
@@ -142,7 +144,7 @@ public class Database {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            this.log.warning("Generic exception at: " + LocalDate.now() + " exception: " + ex);
         } finally {
             itemWriter.flush();
             itemWriter.close();

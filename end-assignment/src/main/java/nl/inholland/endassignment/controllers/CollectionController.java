@@ -1,7 +1,5 @@
 package nl.inholland.endassignment.controllers;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,13 +10,14 @@ import javafx.scene.control.TextField;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.Author;
 import nl.inholland.endassignment.models.Item;
-import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class CollectionController implements Initializable {
 
@@ -36,6 +35,7 @@ public class CollectionController implements Initializable {
     private TextField lastnameAuthorField;
     @FXML
     private TextField searchItemsField;
+    private final Logger log = Logger.getLogger(this.getClass().getName());
 
     public CollectionController(Database db) {
         this.db = db;
@@ -104,7 +104,7 @@ public class CollectionController implements Initializable {
         try {
             db.writeItemsToCsv();
         } catch (IOException ex) {
-            System.out.println("werkt niet");
+            this.log.warning("Writing to items or authors csv failed at: " + LocalDate.now() + " exception: " + ex);
         }
     }
     public void onEditItemButtonClick() {
