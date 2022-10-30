@@ -12,9 +12,12 @@ import javafx.scene.control.TextField;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.Author;
 import nl.inholland.endassignment.models.Item;
+import nl.inholland.endassignment.models.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CollectionController implements Initializable {
@@ -31,6 +34,8 @@ public class CollectionController implements Initializable {
     private TextField prefixField;
     @FXML
     private TextField lastnameAuthorField;
+    @FXML
+    private TextField searchItemsField;
 
     public CollectionController(Database db) {
         this.db = db;
@@ -38,10 +43,10 @@ public class CollectionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Property<ObservableList<Item>> itemListProperty = new SimpleObjectProperty<>(db.getItems());
-        this.itemsTableView.itemsProperty().bind(itemListProperty);
+        this.itemsTableView.setItems(db.getItems());
         this.itemsTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.addTableViewListener();
+        this.addSearchFieldListener();
     }
 
     private void addTableViewListener() {
@@ -53,6 +58,28 @@ public class CollectionController implements Initializable {
             this.lastnameAuthorField.setText(newSelection.getAuthor().getLastname());
         });
     }
+
+    private boolean searchItem(Item item, String searchText){
+        return (item.getTitle().toLowerCase().contains(searchText.toLowerCase())) ||
+                item.getAuthor().getFirstname().toLowerCase().contains(searchText.toLowerCase()) ||
+                item.getAuthor().getLastname().toLowerCase().contains(searchText.toLowerCase()) ||
+                item.getAuthor().getAuthorName().toLowerCase().contains(searchText.toLowerCase());
+    }
+
+    private ObservableList<Item> filterList(List<Item> list, String searchText){
+        List<Item> filteredList = new ArrayList<>();
+        for (Item item : list){
+            if(searchItem(item, searchText)) filteredList.add(item);
+        }
+        return FXCollections.observableList(filteredList);
+    }
+
+    private void addSearchFieldListener() {
+        searchItemsField.textProperty().addListener((observable, oldValue, newValue) ->
+                this.itemsTableView.setItems(filterList(this.db.getItems(), newValue))
+        );
+    }
+
     public void onAddItemButtonClick() {
         Author author = new Author(
                 db.getItems().size() + 1L,

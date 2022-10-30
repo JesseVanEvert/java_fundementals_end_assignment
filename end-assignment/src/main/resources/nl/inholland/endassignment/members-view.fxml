@@ -110,17 +110,22 @@
                             <Insets left="10.0" top="10.0" />
                         </HBox.margin>
                     </Button>
-            </children>
-         </HBox>
-            <HBox layoutX="10.0" layoutY="271.0" prefHeight="54.0" prefWidth="561.0">
-                <children>
                     <Button mnemonicParsing="false" onAction="#onDeleteUserButtonClick" style="-fx-background-color: red;" text="Delete member" textFill="WHITE">
                         <HBox.margin>
                             <Insets left="10.0" top="10.0" />
                         </HBox.margin>
                     </Button>
-                </children>
-            </HBox>
+            </children>
+         </HBox>
+         <HBox prefHeight="54.0" prefWidth="800.0">
+            <children>
+               <TextField fx:id="searchMembersField" promptText="Search members">
+                  <HBox.margin>
+                     <Insets left="10.0" top="10.0" />
+                  </HBox.margin>
+               </TextField>
+            </children>
+         </HBox>
         </children>
     </VBox>
 </AnchorPane>

@@ -10,12 +10,14 @@ import javafx.scene.control.*;
 import nl.inholland.endassignment.database.Database;
 import nl.inholland.endassignment.models.User;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MembersController implements Initializable {
     private final Database db;
-    private ObservableList<User> users;
     @FXML
     private TableView<User> usersTableView;
     @FXML
@@ -30,6 +32,8 @@ public class MembersController implements Initializable {
     private DatePicker birthdayDatePicker;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private TextField searchMembersField;
     private long selectedItemId;
 
     public MembersController(Database db) {
@@ -38,11 +42,10 @@ public class MembersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.users = FXCollections.observableArrayList(db.getUsers());
-        Property<ObservableList<User>> memberListProperty = new SimpleObjectProperty<>(users);
-        this.usersTableView.itemsProperty().bind(memberListProperty);
+        this.usersTableView.setItems(db.getUsers());
         this.usersTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.addTableViewListener();
+        this.addSearchFieldListener();
     }
 
     private void addTableViewListener() {
@@ -57,9 +60,28 @@ public class MembersController implements Initializable {
         });
     }
 
+    private boolean searchUser(User user, String searchText){
+        return (user.getFirstname().toLowerCase().contains(searchText.toLowerCase())) ||
+                (user.getLastname().toLowerCase().contains(searchText.toLowerCase()));
+    }
+
+    private ObservableList<User> filterList(List<User> list, String searchText){
+        List<User> filteredList = new ArrayList<>();
+        for (User user : list){
+            if(searchUser(user, searchText)) filteredList.add(user);
+        }
+        return FXCollections.observableList(filteredList);
+    }
+
+    private void addSearchFieldListener() {
+        searchMembersField.textProperty().addListener((observable, oldValue, newValue) ->
+                this.usersTableView.setItems(filterList(this.db.getUsers(), newValue))
+        );
+    }
+
     public void onAddUserButtonClick() {
         User user = new User(
-                this.users.get(users.size() - 1).getId() + 1,
+                db.getUsers().get(db.getUsers().size() - 1).getId() + 1,
                 this.emailField.getText(),
                 this.firstnameUserField.getText(),
                 this.prefixField.getText(),
@@ -68,28 +90,39 @@ public class MembersController implements Initializable {
                 this.birthdayDatePicker.getValue()
         );
 
-        this.users.add(user);
+        db.getUsers().add(user);
+        this.writeUsersToCsv();
     }
 
     public void onEditUserButtonClick() {
         if(selectedItemId == 0)
             return;
 
-        this.users.get((int)selectedItemId - 1).setEmail(this.emailField.getText());
-        this.users.get((int)selectedItemId - 1).setFirstname(this.firstnameUserField.getText());
-        this.users.get((int)selectedItemId - 1).setLastnamePrefix(this.prefixField.getText());
-        this.users.get((int)selectedItemId - 1).setLastname(this.lastnameUserField.getText());
-        this.users.get((int)selectedItemId - 1).setPassword(this.passwordField.getText());
-        this.users.get((int)selectedItemId - 1).setDateOfBirth(this.birthdayDatePicker.getValue());
+        db.getUsers().get((int)selectedItemId - 1).setEmail(this.emailField.getText());
+        db.getUsers().get((int)selectedItemId - 1).setFirstname(this.firstnameUserField.getText());
+        db.getUsers().get((int)selectedItemId - 1).setLastnamePrefix(this.prefixField.getText());
+        db.getUsers().get((int)selectedItemId - 1).setLastname(this.lastnameUserField.getText());
+        db.getUsers().get((int)selectedItemId - 1).setPassword(this.passwordField.getText());
+        db.getUsers().get((int)selectedItemId - 1).setDateOfBirth(this.birthdayDatePicker.getValue());
 
         this.usersTableView.refresh();
+        this.writeUsersToCsv();
     }
 
     public void onDeleteUserButtonClick() {
         if(selectedItemId == 0)
             return;
 
-        this.users.remove((int)selectedItemId - 1);
+        db.getUsers().remove((int)selectedItemId - 1);
+        this.writeUsersToCsv();
+    }
+
+    private void writeUsersToCsv() {
+        try {
+            db.writeUsersToCsv();
+        } catch (IOException ex) {
+            System.out.println("werkt niet");
+        }
     }
 
     public void onClearFieldsButtonClick(){

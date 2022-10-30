@@ -14,6 +14,13 @@ public class Item {
         this.author = author;
     }
 
+    public Item(long id, LocalDate lendOutOn, String title, Author author) {
+        this.id = id;
+        this.lendOutOn = lendOutOn;
+        this.title = title;
+        this.author = author;
+    }
+
     public long getId() {
         return id;
     }
