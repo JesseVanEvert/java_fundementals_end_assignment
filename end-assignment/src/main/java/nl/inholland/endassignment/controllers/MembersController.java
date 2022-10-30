@@ -1,7 +1,5 @@
 package nl.inholland.endassignment.controllers;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -65,13 +63,13 @@ public class MembersController implements Initializable {
                 birthdayDatePicker.getConverter().fromString(birthdayDatePicker.getEditor().getText())
         );
 
-        if(!this.areRequiredFieldFilledIn())
+        if (!this.areRequiredFieldFilledIn())
             return;
 
-        if(!this.isPasswordValid())
+        if (!this.isPasswordValid())
             return;
 
-        if(!this.isUserEmailUnique())
+        if (!this.isUserEmailUnique())
             return;
 
         db.getUsers().add(user);
@@ -82,7 +80,7 @@ public class MembersController implements Initializable {
     }
 
     @FXML
-    private void onClearFieldsButtonClick(){
+    private void onClearFieldsButtonClick() {
         this.emailField.setText("");
         this.firstnameUserField.setText("");
         this.prefixField.setText("");
@@ -93,24 +91,24 @@ public class MembersController implements Initializable {
 
     @FXML
     private void onEditUserButtonClick() {
-        if(selectedItemId == 0)
+        if (selectedItemId == 0)
             return;
 
-        if(!this.areRequiredFieldFilledIn())
+        if (!this.areRequiredFieldFilledIn())
             return;
 
-        if(!this.isPasswordValid())
+        if (!this.isPasswordValid())
             return;
 
-        if(!this.isUserEmailUnique())
+        if (!this.isUserEmailUniqueEdit())
             return;
 
-        db.getUsers().get((int)selectedItemId - 1).setEmail(this.emailField.getText());
-        db.getUsers().get((int)selectedItemId - 1).setFirstname(this.firstnameUserField.getText());
-        db.getUsers().get((int)selectedItemId - 1).setLastnamePrefix(this.prefixField.getText());
-        db.getUsers().get((int)selectedItemId - 1).setLastname(this.lastnameUserField.getText());
-        db.getUsers().get((int)selectedItemId - 1).setPassword(this.passwordField.getText());
-        db.getUsers().get((int)selectedItemId - 1).setDateOfBirth(this.birthdayDatePicker.getValue());
+        db.getUsers().get((int) selectedItemId - 1).setEmail(this.emailField.getText());
+        db.getUsers().get((int) selectedItemId - 1).setFirstname(this.firstnameUserField.getText());
+        db.getUsers().get((int) selectedItemId - 1).setLastnamePrefix(this.prefixField.getText());
+        db.getUsers().get((int) selectedItemId - 1).setLastname(this.lastnameUserField.getText());
+        db.getUsers().get((int) selectedItemId - 1).setPassword(this.passwordField.getText());
+        db.getUsers().get((int) selectedItemId - 1).setDateOfBirth(this.birthdayDatePicker.getConverter().fromString(birthdayDatePicker.getEditor().getText()));
 
         this.feedbackMembersLabel.setText("Edited user: " + this.firstnameUserField.getText());
         this.feedbackMembersLabel.setVisible(true);
@@ -120,24 +118,29 @@ public class MembersController implements Initializable {
 
     @FXML
     private void onDeleteUserButtonClick() {
-        if(selectedItemId == 0)
+        if (selectedItemId == 0)
             return;
 
-        if(isLastUserBeingDeleted())
+        if (isLastUserBeingDeleted())
             return;
 
-        db.getUsers().remove((int)selectedItemId - 1);
+        db.getUsers().remove((int) selectedItemId - 1);
         this.feedbackMembersLabel.setText("Deleted user: " + this.firstnameUserField.getText());
         this.feedbackMembersLabel.setVisible(true);
         this.usersTableView.setItems(db.getUsers());
         this.writeUsersToCsv();
     }
 
+    private boolean isUserEmailUniqueEdit() {
+        if (this.emailField.getText().equals(db.getUsers().get((int) selectedItemId - 1).getEmail()))
+            return true;
+
+        return isUserEmailUnique();
+    }
+
     private boolean isUserEmailUnique() {
         for (User user : db.getUsers()) {
-            if(this.emailField.getText().equals(db.getUsers().get((int)selectedItemId - 1).getEmail()))
-                return true;
-            if(user.getEmail().equals(this.emailField.getText())) {
+            if (user.getEmail().equals(this.emailField.getText())) {
                 this.feedbackMembersLabel.setText("Email is already registered");
                 this.feedbackMembersLabel.setVisible(true);
                 return false;
@@ -163,7 +166,7 @@ public class MembersController implements Initializable {
                 hasSpecial = true;
             }
         }
-        if(password.length() > 7 && (hasLetters && hasDigits && hasSpecial))
+        if (password.length() > 7 && (hasLetters && hasDigits && hasSpecial))
             return true;
 
         this.feedbackMembersLabel.setText("Use letters, digits and special characters in password totaling > 7 characters");
@@ -172,7 +175,7 @@ public class MembersController implements Initializable {
     }
 
     private boolean isLastUserBeingDeleted() {
-        if(db.getUsers().size() == 1) {
+        if (db.getUsers().size() == 1) {
             this.feedbackMembersLabel.setText("You can't delete every user");
             this.feedbackMembersLabel.setVisible(true);
             return true;
@@ -191,25 +194,28 @@ public class MembersController implements Initializable {
 
     private void addTableViewListener() {
         usersTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            this.selectedItemId = newSelection.getId();
-            this.emailField.setText(newSelection.getEmail());
-            this.firstnameUserField.setText(newSelection.getFirstname());
-            this.firstnameUserField.setText(newSelection.getFirstname());
-            this.prefixField.setText(newSelection.getLastnamePrefix());
-            this.lastnameUserField.setText(newSelection.getLastname());
-            this.birthdayDatePicker.setValue(newSelection.getDateOfBirth());
+            if(newSelection != null) {
+                this.selectedItemId = newSelection.getId();
+                this.emailField.setText(newSelection.getEmail());
+                this.firstnameUserField.setText(newSelection.getFirstname());
+                this.firstnameUserField.setText(newSelection.getFirstname());
+                this.prefixField.setText(newSelection.getLastnamePrefix());
+                this.lastnameUserField.setText(newSelection.getLastname());
+                this.birthdayDatePicker.setValue(newSelection.getDateOfBirth());
+                this.passwordField.setText(newSelection.getPassword());
+            }
         });
     }
 
-    private boolean searchUser(User user, String searchText){
+    private boolean searchUser(User user, String searchText) {
         return (user.getFirstname().toLowerCase().contains(searchText.toLowerCase())) ||
                 (user.getLastname().toLowerCase().contains(searchText.toLowerCase()));
     }
 
-    private ObservableList<User> filterList(List<User> list, String searchText){
+    private ObservableList<User> filterList(List<User> list, String searchText) {
         List<User> filteredList = new ArrayList<>();
-        for (User user : list){
-            if(searchUser(user, searchText)) filteredList.add(user);
+        for (User user : list) {
+            if (searchUser(user, searchText)) filteredList.add(user);
         }
         return FXCollections.observableList(filteredList);
     }
@@ -221,7 +227,7 @@ public class MembersController implements Initializable {
     }
 
     private boolean areRequiredFieldFilledIn() {
-        if(
+        if (
                 this.emailField.getText().strip().equals("") ||
                         this.firstnameUserField.getText().strip().equals("") ||
                         this.lastnameUserField.getText().equals("") ||
