@@ -20,6 +20,9 @@ public class Database {
     private final Logger log = Logger.getLogger(this.getClass().getName());
 
     public Database() {
+        this.readItemsFromCsvToList();
+        this.readUsersFromCsvToList();
+
         this.users.add(new User(users.size() + 1L, "hans@hotmail.nl", "Hans", "de", "vries", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
         this.users.add(new User(users.size() + 1L, "henk@outlook.com","Henk",  "", "Janssen", "wachtwoord", LocalDate.ofYearDay(1999, 3)));
 
@@ -33,9 +36,6 @@ public class Database {
 
         this.items.add(aTaleOfTwoCities);
         this.items.add(new Item(items.size() + 1L, "One Hundred Years of Solitude", marquez));
-
-        this.readItemsFromCsvToList();
-        this.readUsersFromCsvToList();
     }
 
     public void readUsersFromCsvToList() {
@@ -110,7 +110,7 @@ public class Database {
 
         try {
             File itemsFile = new File("users.csv");
-            userWriter = new BufferedWriter(new FileWriter(itemsFile, false));
+            userWriter = new FileWriter(itemsFile, false);
 
             for (User user: this.users) {
                 String itemRow = user.getId() + "," + user.getEmail() + "," + user.getFirstname() + "," +
@@ -131,9 +131,9 @@ public class Database {
         Writer authorWriter = null;
         try {
             File itemsFile = new File("items.csv");
-            itemWriter = new BufferedWriter(new FileWriter(itemsFile, false));
+            itemWriter = new FileWriter(itemsFile, false);
             File authorsFile = new File("authors.csv");
-            authorWriter = new BufferedWriter(new FileWriter(authorsFile, false));
+            authorWriter = new FileWriter(authorsFile, false);
 
             for (Item item : this.items) {
                 String itemRow = item.getId() + "," + item.getLendOutOn() + "," + item.getTitle() + "," + "\n";

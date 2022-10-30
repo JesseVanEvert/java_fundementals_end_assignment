@@ -40,7 +40,6 @@ public class LendingReceivingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.welcomeLabel.setText("Welcome " + loggedInUser.getFirstname());
-        this.memberIdTextField.setText(Long.toString(this.loggedInUser.getId()));
     }
 
     public LendingReceivingController(Database db, User loggedInUser) {
